@@ -6,14 +6,15 @@ import { templateCompilerOptions } from "@tresjs/core";
 export default defineConfig({
   plugins: [vue({ ...templateCompilerOptions })],
   build: {
-    chunkSizeWarningLimit: 700,
+    chunkSizeWarningLimit: 1100, // slightly larger than vendors bundle
     rollupOptions: {
       output: {
         manualChunks: {
-          vue: ["vue"],
-          three: ["three"],
-          tresjs: ["@tresjs/core", "@tresjs/cientos"],
+          vendors: ["vue", "three", "@tresjs/core", "@tresjs/cientos"],
         },
+        assetFileNames: "assets/[name][extname]",
+        entryFileNames: "assets/[name].js",
+        chunkFileNames: "assets/[name].js",
       },
     },
   },
